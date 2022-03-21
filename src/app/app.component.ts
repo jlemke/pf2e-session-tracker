@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pf2e-session-tracker';
+  title = 'Pathfinder Session Tracker';
 }
