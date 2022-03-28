@@ -1,5 +1,11 @@
-<p>Profile 1</p>
-<p>Profile 2</p>
-<p>Profile 3</p>
+<mat-button-toggle-group vertical="true">
+    <mat-button-toggle *ngFor="let profile of profiles; first as isFirst" 
+            value="{{profile}}" 
+            checked="{{isFirst}}">
+        {{profile}}
+    </mat-button-toggle>
+</mat-button-toggle-group>
+
+
 <button mat-raised-button>pop-up for add new profile</button>
 <button mat-raised-button routerLink="/">Done</button>
