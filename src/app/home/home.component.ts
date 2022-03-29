@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PROFILES } from '../sample-session-data';
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+
+import { ProfileService } from '../profile.service';
+import { SelectProfileComponent } from '../select-profile/select-profile.component';
+
 
 @Component({
   selector: 'app-home',
@@ -8,12 +12,34 @@ import { PROFILES } from '../sample-session-data';
 })
 export class HomeComponent implements OnInit {
 
-  currentProfile = PROFILES[0];
+  profiles: string[] = [];
 
-  constructor() { }
+  currentProfile: string = "No Profiles";
+
+  constructor(private profileDialog: MatDialog, private profileService: ProfileService) { }
+
+  openProfileSelect() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    //this.profileDialog.open(SelectProfileComponent, dialogConfig);
+
+    const dialogRef = this.profileDialog.open(SelectProfileComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      () => { 
+        this.profiles = this.profileService.getProfiles();
+        this.currentProfile = this.profiles[0];
+      }
+    );  
+  }
 
   ngOnInit(): void {
-    // TODO get list of profiles and currently selected profile
+    //TODO add case for no exisiting profiles found
+    this.profiles = this.profileService.getProfiles();
+    this.currentProfile = this.profiles[0];
   }
 
 }

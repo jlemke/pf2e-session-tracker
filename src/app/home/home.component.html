@@ -4,4 +4,4 @@
 <h1>{{currentProfile}}</h1>
 <div><button mat-raised-button routerLink="/session">Start Session</button></div>
 <div><button mat-raised-button routerLink="/stats">View Stats</button></div>
-<div><button mat-raised-button routerLink="/profile-select">Change Profile</button></div>
+<div><button mat-raised-button (click)="openProfileSelect()">Change Profile</button></div>
