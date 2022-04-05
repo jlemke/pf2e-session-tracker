@@ -13,6 +13,8 @@ export class SelectProfileComponent implements OnInit {
 
   selectedProfile = "";
 
+  newProfile: string = "";
+
   constructor(private profileService: ProfileService, 
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<SelectProfileComponent>) { }
@@ -21,7 +23,11 @@ export class SelectProfileComponent implements OnInit {
     this.profiles = this.profileService.getProfiles();
   }
 
-  done(selection: string) {
+  cancel(): void {
+    this.dialogRef.close();
+  }
+
+  done(selection: string): void {
     this.profileService.selectProfile(selection);
     this.dialogRef.close();
   }

@@ -1,11 +1,24 @@
-<mat-button-toggle-group vertical="true" #group="matButtonToggleGroup">
-    <mat-button-toggle *ngFor="let profile of profiles; first as isFirst" 
-            [value]="profile" 
-            [checked]="isFirst">
-        {{profile}}
-    </mat-button-toggle>
-</mat-button-toggle-group>
+<form class="select-profile-form">
+    <div>
+        <mat-form-field class="new-profile-input" appearance="fill">
+            <mat-label>New Profile</mat-label>
+            <input matInput placeholder="Name" type="text" name="newProfile" [(ngModel)]="newProfile">
+        </mat-form-field>
+        <button mat-raised-button [disabled]="newProfile == ''" (click)="done(newProfile)">Add Profile</button>
+    </div>
 
 
-<button mat-raised-button>pop-up for add new profile</button>
-<button mat-raised-button (click)="done(group.value)">Done</button>
+    <div>
+        <mat-button-toggle-group vertical="true" #group="matButtonToggleGroup">
+            <mat-button-toggle *ngFor="let profile of profiles; first as isFirst" 
+                    [value]="profile" 
+                    [checked]="isFirst">
+                {{profile}}
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <div>
+        <button mat-raised-button (click)="cancel()">Cancel</button>
+        <button mat-raised-button (click)="done(group.value)">Done</button>
+    </div>
+</form>
