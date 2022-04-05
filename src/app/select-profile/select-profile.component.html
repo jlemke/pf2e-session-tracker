@@ -8,8 +8,8 @@
     </div>
 
 
-    <div>
-        <mat-button-toggle-group vertical="true" #group="matButtonToggleGroup">
+    <div *ngIf="profiles.length != 0">
+        <mat-button-toggle-group vertical="true" name="selectedProfile" [(ngModel)]="selectedProfile">
             <mat-button-toggle *ngFor="let profile of profiles; first as isFirst" 
                     [value]="profile" 
                     [checked]="isFirst">
@@ -17,8 +17,11 @@
             </mat-button-toggle>
         </mat-button-toggle-group>
     </div>
+    <div *ngIf="profiles.length == 0">
+        No profiles to display, enter a new profile.
+    </div>
     <div>
         <button mat-raised-button (click)="cancel()">Cancel</button>
-        <button mat-raised-button (click)="done(group.value)">Done</button>
+        <button mat-raised-button [disabled]="profiles.length == 0" (click)="done(selectedProfile)">Done</button>
     </div>
 </form>

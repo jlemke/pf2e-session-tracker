@@ -6,7 +6,7 @@ import { PROFILES } from './sample-session-data';
 })
 export class ProfileService {
 
-  profiles: string[] = PROFILES;
+  profiles: string[] = [];//PROFILES;
 
   getProfiles(): string[] {
     return this.profiles;

@@ -1,7 +1,12 @@
 <mat-toolbar color="primary">
     <span>Pathfinder Session Tracker</span>
 </mat-toolbar>
-<h1>{{currentProfile}}</h1>
-<div><button mat-raised-button routerLink="/session">Start Session</button></div>
+<div *ngIf="profiles.length != 0">
+    <h1>{{currentProfile}}</h1>
+</div> 
+<div *ngIf="profiles.length == 0">
+    <h1>Add a profile to begin.</h1>
+</div>
+<div><button mat-raised-button [disabled]="profiles.length == 0" routerLink="/session">Start Session</button></div>
 <div><button mat-raised-button routerLink="/stats">View Stats</button></div>
-<div><button mat-raised-button (click)="openProfileSelect()">Change Profile</button></div>
+<div><button mat-raised-button (click)="openProfileSelect()">{{changeProfileButtonText}}</button></div>

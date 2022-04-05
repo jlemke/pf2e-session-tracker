@@ -11,7 +11,7 @@ export class SelectProfileComponent implements OnInit {
 
   profiles: string[] = [];
 
-  selectedProfile = "";
+  selectedProfile: string = "";
 
   newProfile: string = "";
 
@@ -21,6 +21,8 @@ export class SelectProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.profiles = this.profileService.getProfiles();
+    if (this.profiles)
+      this.selectedProfile = this.profiles[0];
   }
 
   cancel(): void {
