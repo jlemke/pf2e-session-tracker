@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ProfileService } from '../profile.service';
 
 @Component({
@@ -16,7 +16,6 @@ export class SelectProfileComponent implements OnInit {
   newProfile: string = "";
 
   constructor(private profileService: ProfileService, 
-    private dialog: MatDialog,
     private dialogRef: MatDialogRef<SelectProfileComponent>) { }
 
   ngOnInit(): void {

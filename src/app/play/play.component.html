@@ -1,2 +1,13 @@
 <p>In session screen</p>
-<button mat-raised-button routerLink="/">End Session</button>
+
+<div *ngIf="!inCombat">
+    <button mat-fab color="warn" (click)="startCombat()">Combat</button>
+</div>
+<div *ngIf="inCombat">
+    <button mat-fab (click)="nextTurn()">Turn+</button>
+    {{turn}}
+    <button mat-fab color="warn" (click)="endCombat()">End</button>
+</div>
+<div>
+    <button mat-raised-button routerLink="/">End Session</button>
+</div>

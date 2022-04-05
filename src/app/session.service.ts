@@ -9,16 +9,16 @@ export class SessionService {
 
   currentProfile: string = "_NO PROFILE_";
 
-  currentSession: SessionData;
+  currentSession: SessionData = {
+    character: this.currentProfile,
+    startTime: "",
+    endTime: "", 
+    combats: [],
+    rolls: []
+  }
 
-  function startSession() {
-    currentSession = {
-      character: currentProfile,
-      startTime: "",
-      endTime: "NONE", 
-      combats: [],
-      rolls: []
-    }
+  startSession() {
+    
   }
 
   constructor() { }

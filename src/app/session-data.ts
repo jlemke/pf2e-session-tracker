@@ -1,3 +1,7 @@
+export function getTimestamp(): string {
+    return new Date().toISOString().split(".")[0];
+}
+
 export interface SessionData {
     character: string; // player character's name
     startTime: string;  //"YYYY-MM-DDTHH-MM-SS"
@@ -20,3 +24,17 @@ export interface RollData {
     checkType: string; //enum?? acrobatics, athletics,
 }
   
+
+//const groupRollsByCheckType = (sessions: SessionData[]) => {
+//    sessions.reduce(
+//        (acc, x) => {
+//            x.rolls.forEach(y => acc.set(
+//                y.checkType,
+//                [... (acc.get(y.checkType) ?? []), x]
+//            ))
+//            return acc;
+//        },
+//        new Map<string, RollData[]>()
+//
+//    )
+//}
