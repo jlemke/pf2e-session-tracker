@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CombatData, getTimestamp, RollData, SessionData } from '../session-data';
 import { AppService } from '../app.service';
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { DiceRollComponent } from '../dice-roll/dice-roll.component';
 
 @Component({
   selector: 'app-play',
@@ -18,7 +20,7 @@ export class PlayComponent implements OnInit {
   combatStartTime = "";
   combatRounds = 0;
 
-  constructor(private appService: AppService) {
+  constructor(private rollDialog: MatDialog, private appService: AppService) {
     this.character = this.appService.getSelectedProfile(),
     this.sessionStartTime = getTimestamp();
    }
@@ -48,6 +50,21 @@ export class PlayComponent implements OnInit {
     this.combats.push(newCombat);
   }
 
+  openDieRoll() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.rollDialog.open(DiceRollComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      () => { 
+        // add die roll
+      }
+    );  
+  }
+
   endSession() {
     let session: SessionData = {
       character : this.character,
@@ -57,7 +74,7 @@ export class PlayComponent implements OnInit {
       rolls : this.rolls
     }
     this.appService.saveSession(session);
-    
+
   }
 
 }

@@ -2,26 +2,26 @@
     <div>
         <mat-form-field class="new-profile-input" appearance="fill">
             <mat-label>New Profile</mat-label>
-            <input matInput placeholder="Name" type="text" name="newProfile" [(ngModel)]="newProfile">
+            <input matInput placeholder="Name" type="text" name="new-profile" [(ngModel)]="newProfile">
         </mat-form-field>
         <button mat-raised-button [disabled]="newProfile == ''" (click)="done(newProfile)">Add Profile</button>
     </div>
 
 
     <div *ngIf="profiles.length != 0">
-        <mat-button-toggle-group vertical="true" name="selectedProfile" [(ngModel)]="selectedProfile">
-            <mat-button-toggle *ngFor="let profile of profiles; first as isFirst" 
-                    [value]="profile" 
-                    [checked]="isFirst">
+        <mat-selection-list [multiple]="false" name="selected-profile" [(ngModel)]="selectedProfile">
+            <mat-list-option *ngFor="let profile of profiles; first as isFirst" 
+            [value]="profile" 
+            [selected]="isFirst">
                 {{profile}}
-            </mat-button-toggle>
-        </mat-button-toggle-group>
+            </mat-list-option>
+        </mat-selection-list>
     </div>
     <div *ngIf="profiles.length == 0">
         No profiles to display, enter a new profile.
     </div>
     <div>
         <button mat-raised-button (click)="cancel()">Cancel</button>
-        <button mat-raised-button [disabled]="profiles.length == 0" (click)="done(selectedProfile)">Done</button>
+        <button mat-raised-button [disabled]="profiles.length == 0" (click)="done(selectedProfile[0])">Done</button>
     </div>
 </form>

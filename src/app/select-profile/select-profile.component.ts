@@ -29,6 +29,7 @@ export class SelectProfileComponent implements OnInit {
   }
 
   done(selection: string): void {
+    console.log(selection);
     this.appService.selectProfile(selection);
     this.dialogRef.close();
   }
