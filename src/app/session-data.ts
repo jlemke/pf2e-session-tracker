@@ -1,5 +1,6 @@
 export function getTimestamp(): string {
-    return new Date().toISOString().split(".")[0];
+    let date = new Date().toISOString();
+    return date.substring(0, date.indexOf("."));
 }
 
 export interface SessionData {
@@ -23,7 +24,6 @@ export interface RollData {
 //  checkResult: number; 0,1,2,3 ["critical success", "success", "failure", "critical failure"]
     checkType: string; //enum?? acrobatics, athletics,
 }
-  
 
 //const groupRollsByCheckType = (sessions: SessionData[]) => {
 //    sessions.reduce(

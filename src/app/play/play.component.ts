@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CombatData } from '../session-data';
+import { CombatData, getTimestamp, RollData, SessionData } from '../session-data';
 import { AppService } from '../app.service';
 
 @Component({
@@ -9,35 +9,55 @@ import { AppService } from '../app.service';
 })
 export class PlayComponent implements OnInit {
 
-  profile: string = "";
+  character: string;
+  sessionStartTime: string;
+  combats: CombatData[] = [];
+  rolls: RollData[] = [];
 
   inCombat: boolean = false;
+  combatStartTime = "";
+  combatRounds = 0;
 
-  turn = 0;
-
-  combatStart: string = "";
-
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService) {
+    this.character = this.appService.getSelectedProfile(),
+    this.sessionStartTime = getTimestamp();
+   }
 
   ngOnInit(): void {
-    let profiles = this.appService.getProfiles();
-    this.profile = profiles[0];
+
   }
 
   startCombat() {
     this.inCombat = true;
-    this.turn = 0;
-    this.combatStart = new Date().toISOString();
-
-    console.log(this.combatStart);
+    this.combatRounds = 0;
+    this.combatStartTime = getTimestamp();
+    console.log(this.combatStartTime);
   }
 
   nextTurn() {
-    this.turn += 1;
+    this.combatRounds += 1;
   }
 
   endCombat() {
     this.inCombat = false;
+    let newCombat: CombatData = {
+      startTime : this.combatStartTime,
+      endTime : getTimestamp(),
+      rounds : this.combatRounds
+    }
+    this.combats.push(newCombat);
+  }
+
+  endSession() {
+    let session: SessionData = {
+      character : this.character,
+      startTime : this.sessionStartTime,
+      endTime : getTimestamp(),
+      combats : this.combats,
+      rolls : this.rolls
+    }
+    this.appService.saveSession(session);
+    
   }
 
 }

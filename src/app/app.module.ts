@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DiceRollComponent } from './dice-roll/dice-roll.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     HomeComponent,
     PlayComponent,
     StatsComponent,
-    SelectProfileComponent
+    SelectProfileComponent,
+    DiceRollComponent
   ],
   imports: [
     BrowserModule,

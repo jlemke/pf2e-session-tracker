@@ -1,14 +1,20 @@
 <p>In session screen</p>
-<p>current profile: {{profile}}</p>
+<p>current profile: {{character}}</p>
 
 <div *ngIf="!inCombat">
     <button mat-fab color="warn" (click)="startCombat()">Combat</button>
 </div>
 <div *ngIf="inCombat">
     <button mat-fab (click)="nextTurn()">Turn+</button>
-    {{turn}}
+    {{combatRounds}}
     <button mat-fab color="warn" (click)="endCombat()">End</button>
 </div>
 <div>
     <button mat-raised-button routerLink="/">End Session</button>
+</div>
+
+<div *ngFor="let combat of combats">
+    {{combat.startTime}}<br/>
+    {{combat.endTime}}<br/>
+    {{combat.rounds}}
 </div>
