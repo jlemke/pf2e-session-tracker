@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CombatData } from '../session-data';
-import { SessionService } from '../session.service';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-play',
@@ -9,15 +9,19 @@ import { SessionService } from '../session.service';
 })
 export class PlayComponent implements OnInit {
 
+  profile: string = "";
+
   inCombat: boolean = false;
 
   turn = 0;
 
   combatStart: string = "";
 
-  constructor(private sessionService: SessionService) { }
+  constructor(private appService: AppService) { }
 
   ngOnInit(): void {
+    let profiles = this.appService.getProfiles();
+    this.profile = profiles[0];
   }
 
   startCombat() {

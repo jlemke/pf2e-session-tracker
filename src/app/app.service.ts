@@ -4,7 +4,7 @@ import { PROFILES } from './sample-session-data';
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService {
+export class AppService {
 
   //TODO combine into singular service, session service
 

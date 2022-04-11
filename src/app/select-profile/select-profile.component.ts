@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ProfileService } from '../profile.service';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-select-profile',
@@ -15,11 +15,11 @@ export class SelectProfileComponent implements OnInit {
 
   newProfile: string = "";
 
-  constructor(private profileService: ProfileService, 
+  constructor(private appService: AppService, 
     private dialogRef: MatDialogRef<SelectProfileComponent>) { }
 
   ngOnInit(): void {
-    this.profiles = this.profileService.getProfiles();
+    this.profiles = this.appService.getProfiles();
     if (this.profiles)
       this.selectedProfile = this.profiles[0];
   }
@@ -29,7 +29,7 @@ export class SelectProfileComponent implements OnInit {
   }
 
   done(selection: string): void {
-    this.profileService.selectProfile(selection);
+    this.appService.selectProfile(selection);
     this.dialogRef.close();
   }
 

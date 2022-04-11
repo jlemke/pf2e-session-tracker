@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 
-import { ProfileService } from '../profile.service';
+import { AppService } from '../app.service';
 import { SelectProfileComponent } from '../select-profile/select-profile.component';
 
 
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   changeProfileButtonText = "Change Profile";
 
-  constructor(private profileDialog: MatDialog, private profileService: ProfileService) { }
+  constructor(private profileDialog: MatDialog, private appService: AppService) { }
 
   openProfileSelect() {
     const dialogConfig = new MatDialogConfig();
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       () => { 
-        this.profiles = this.profileService.getProfiles();
+        this.profiles = this.appService.getProfiles();
         this.currentProfile = this.profiles[0];
         this.changeProfileButtonText = "Change Profile";
       }
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     //TODO add case for no exisiting profiles found
-    this.profiles = this.profileService.getProfiles();
+    this.profiles = this.appService.getProfiles();
     if (this.profiles.length != 0)
       this.currentProfile = this.profiles[0];
     else
