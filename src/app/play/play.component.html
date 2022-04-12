@@ -13,7 +13,7 @@
     <button mat-fab (click)="openDieRoll()">Roll</button>
 </div>
 <div>
-    <button mat-raised-button routerLink="/">End Session</button>
+    <button mat-raised-button (click)="endSession()">End Session</button>
 </div>
 
 <div *ngFor="let combat of combats">

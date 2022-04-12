@@ -25,6 +25,10 @@ export interface RollData {
     checkType: string; //enum?? acrobatics, athletics,
 }
 
+export const CHECKTYPES: string[] = [
+    'Attack Roll', 'Fortitude Save', 'Will Save', 'Reflex Save'
+]
+
 //const groupRollsByCheckType = (sessions: SessionData[]) => {
 //    sessions.reduce(
 //        (acc, x) => {

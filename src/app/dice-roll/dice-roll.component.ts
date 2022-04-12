@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AppService } from '../app.service';
 import { animate, state, style, transition, trigger } from '@angular/animations'
+import { CHECKTYPES } from '../session-data';
 
 @Component({
   selector: 'app-dice-roll',
@@ -17,6 +18,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class DiceRollComponent implements OnInit {
 
   @Input() activePane: PaneType = 0;
+
+  checkTypes = CHECKTYPES;
 
   constructor(private appService: AppService, 
     private dialogRef: MatDialogRef<DiceRollComponent>) { }

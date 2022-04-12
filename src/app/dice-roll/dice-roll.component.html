@@ -1,4 +1,15 @@
-<form class="die-roll-form parent">
-    <div><ng-content select="[leftPane]"></ng-content></div>
-    <div><ng-content select="[rightPane]"></ng-content></div>
+<form class="die-roll-form pane">
+    <div>
+        <mat-selection-list [multiple]="false">
+            <mat-list-option *ngFor="let type of checkTypes">
+                {{type}}
+            </mat-list-option>
+        </mat-selection-list>
+        <button mat-raised-button>Next</button>
+    </div>
+    <div>
+        <mat-form-field appearance="fill">
+            <input type="number" matInput>
+        </mat-form-field>
+    </div>
 </form>
