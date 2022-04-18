@@ -47,6 +47,9 @@ export class AppService {
     return this.sessions;
   }
 
+  getSessionsByProfile(profileName: string) {
+    return this.sessions.filter(session => session.character == profileName);
+  }
   
   
   selectProfile(selected: string) {

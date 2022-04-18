@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 
 import { AppService } from '../app.service';
 import { SelectProfileComponent } from '../select-profile/select-profile.component';
+import { SessionData } from '../session-data';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit {
   profiles: string[] = [];
 
   currentProfile: string = "";
+  sessionsByProfile: SessionData[] = [];
 
   changeProfileButtonText = "Change Profile";
 
@@ -32,17 +34,18 @@ export class HomeComponent implements OnInit {
       () => { 
         this.profiles = this.appService.getProfiles();
         this.currentProfile = this.profiles[0];
+        this.sessionsByProfile = this.appService.getSessionsByProfile(this.currentProfile);
         this.changeProfileButtonText = "Change Profile";
       }
     );  
   }
 
   ngOnInit(): void {
-    //TODO add case for no exisiting profiles found
     this.profiles = this.appService.getProfiles();
-    if (this.profiles.length != 0)
+    if (this.profiles.length != 0) {
       this.currentProfile = this.profiles[0];
-    else
+      this.sessionsByProfile = this.appService.getSessionsByProfile(this.currentProfile);
+    } else
       this.changeProfileButtonText = "Add Profile";
   }
 

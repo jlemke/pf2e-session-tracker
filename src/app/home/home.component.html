@@ -3,6 +3,8 @@
 </mat-toolbar>
 <div *ngIf="profiles.length != 0">
     <h1>{{currentProfile}}</h1>
+    <div *ngIf="sessionsByProfile.length != 0">{{sessionsByProfile.length}} Sessions</div>
+    <div *ngIf="sessionsByProfile.length == 0">No sessions</div>
 </div> 
 <div *ngIf="profiles.length == 0">
     <h1>Add a profile to begin.</h1>
