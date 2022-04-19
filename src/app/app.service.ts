@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { PROFILES } from './sample-session-data';
+import { PROFILES, SESSIONS } from './sample-session-data';
 import { SessionData } from './session-data';
+import { calculateLongestSession, calculateMostRecentSession } from './session-stats';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AppService {
 
   profiles: string[] = PROFILES;
 
-  sessions: SessionData[] = [];
+  sessions: SessionData[] = SESSIONS;
 
   loadProfiles(): void {
     this.storage.get('profiles').subscribe((data) => {
@@ -30,7 +31,6 @@ export class AppService {
     return this.profiles;
   }
 
-
   loadSessions(): void {
     this.storage.get('sessions').subscribe((data) => {
       if (data != undefined) {
@@ -43,14 +43,16 @@ export class AppService {
     this.storage.set('sessions', this.sessions).subscribe(() => {});
   }
 
-  getSessions() {
-    return this.sessions;
+  getSessions(profileName?: string) {
+    if (typeof profileName != 'undefined')
+      return this.sessions.filter(session => session.character == profileName);
+    else
+      return this.sessions;
   }
 
-  getSessionsByProfile(profileName: string) {
-    return this.sessions.filter(session => session.character == profileName);
+  getMostRecentSession(profileName: string) {
+    return calculateMostRecentSession(this.getSessions(profileName));
   }
-  
   
   selectProfile(selected: string) {
     this.profiles = [selected, ...this.profiles.filter((profile) => profile !== selected)];
@@ -66,6 +68,9 @@ export class AppService {
     console.log(session);
   }
 
-  constructor(private storage: StorageMap) { }
+  constructor(private storage: StorageMap) {
+    this.loadProfiles();
+    this.loadSessions();
+  }
 
 }

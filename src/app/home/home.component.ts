@@ -3,8 +3,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 
 import { AppService } from '../app.service';
 import { SelectProfileComponent } from '../select-profile/select-profile.component';
-import { SessionData } from '../session-data';
-
+import { SessionData, getTimestamp, sinceDate } from '../session-data';
 
 @Component({
   selector: 'app-home',
@@ -17,10 +16,28 @@ export class HomeComponent implements OnInit {
 
   currentProfile: string = "";
   sessionsByProfile: SessionData[] = [];
+  sinceLastSession = "Never";
 
   changeProfileButtonText = "Change Profile";
 
   constructor(private profileDialog: MatDialog, private appService: AppService) { }
+
+  
+
+  updateSelectedProfile() {
+    this.profiles = this.appService.getProfiles();
+    if (this.profiles.length != 0) {
+      this.currentProfile = this.profiles[0];
+      this.sessionsByProfile = this.appService.getSessions(this.currentProfile);
+      if (this.sessionsByProfile.length != 0) { 
+        let lastSession = this.appService.getMostRecentSession(this.currentProfile);
+        this.sinceLastSession = sinceDate(lastSession.endTime);
+      }
+      this.changeProfileButtonText = "Change Profile";
+    } else {
+      this.changeProfileButtonText = "Add Profile";
+    }
+  }
 
   openProfileSelect() {
     const dialogConfig = new MatDialogConfig();
@@ -31,22 +48,14 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.profileDialog.open(SelectProfileComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      () => { 
-        this.profiles = this.appService.getProfiles();
-        this.currentProfile = this.profiles[0];
-        this.sessionsByProfile = this.appService.getSessionsByProfile(this.currentProfile);
-        this.changeProfileButtonText = "Change Profile";
+      () => {
+        this.updateSelectedProfile();
       }
     );  
   }
 
   ngOnInit(): void {
-    this.profiles = this.appService.getProfiles();
-    if (this.profiles.length != 0) {
-      this.currentProfile = this.profiles[0];
-      this.sessionsByProfile = this.appService.getSessionsByProfile(this.currentProfile);
-    } else
-      this.changeProfileButtonText = "Add Profile";
+    this.updateSelectedProfile();
   }
 
 }
