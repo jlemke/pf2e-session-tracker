@@ -13,3 +13,7 @@ export function calculateMostRecentSession(sessions: SessionData[]) {
     return sessions.reduce((acc, session) => 
         Date.parse(session.startTime) > Date.parse(acc.startTime) ? session : acc, sessions[0]);
 }
+
+export function calculateNumberOfRolls(sessions: SessionData[]) {
+    return sessions.reduce((acc, session) => acc + session.rolls.length, 0);
+}

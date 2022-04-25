@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
-import { getFormattedDuration, SessionData } from '../session-data';
+import { getFormattedDuration, getFormattedDurationOf, SessionData } from '../session-data';
 
 @Component({
   selector: 'app-session-history',
@@ -27,7 +27,7 @@ export class SessionHistoryComponent implements OnInit {
   }
 
   sessionLength(session: SessionData): string {
-    return getFormattedDuration(session);
+    return getFormattedDurationOf(session);
   }
 
   showMoreHistory(): void {

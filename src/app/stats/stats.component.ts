@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
-import { getFormattedDuration, SessionData } from '../session-data';
+import { getDuration, getFormattedDuration, SessionData } from '../session-data';
+import { calculateNumberOfRolls } from '../session-stats';
 
 @Component({
   selector: 'app-stats',
@@ -24,5 +25,13 @@ export class StatsComponent implements OnInit {
     let dateString = date.toDateString();
     return dateString;
   }
-  
+
+  totalSessionTime(): string {
+    let totalDuration = this.sessions.reduce((acc, session) => acc + getDuration(session), 0);
+    return getFormattedDuration(totalDuration);
+  }
+
+  totalRolls(): number {
+    return calculateNumberOfRolls(this.sessions);
+  }
 }
