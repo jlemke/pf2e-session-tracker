@@ -10,5 +10,6 @@ export function calculateLongestSession(sessions: SessionData[]) {
 }
 
 export function calculateMostRecentSession(sessions: SessionData[]) {
-    return sessions.reduce((acc, session) => getDuration(session) > getDuration(acc) ? session : acc, sessions[0]);
+    return sessions.reduce((acc, session) => 
+        Date.parse(session.startTime) > Date.parse(acc.startTime) ? session : acc, sessions[0]);
 }

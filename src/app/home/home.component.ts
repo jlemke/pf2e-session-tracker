@@ -22,8 +22,6 @@ export class HomeComponent implements OnInit {
 
   constructor(private profileDialog: MatDialog, private appService: AppService) { }
 
-  
-
   updateSelectedProfile() {
     this.profiles = this.appService.getProfiles();
     if (this.profiles.length != 0) {

@@ -3,15 +3,15 @@
 </mat-toolbar>
 <div *ngIf="profiles.length != 0">
     <h1>{{currentProfile}}</h1>
-    <div *ngIf="sessionsByProfile.length != 0">{{sessionsByProfile.length}} Sessions
-        <div>Last Session {{sinceLastSession}}</div>
+    <div [ngPlural]="sessionsByProfile.length">
+        <ng-template ngPluralCase="0">No Sessions</ng-template>
+        <ng-template ngPluralCase="1">1 Session</ng-template>
+        <ng-template ngPluralCase="other">{{sessionsByProfile.length}} Sessions</ng-template>
     </div>
-    
-    <div *ngIf="sessionsByProfile.length == 0">No sessions</div>
 </div> 
 <div *ngIf="profiles.length == 0">
     <h1>Add a profile to begin.</h1>
 </div>
 <div><button mat-raised-button [disabled]="profiles.length == 0" routerLink="/session">Start Session</button></div>
-<div><button mat-raised-button routerLink="/stats">View Stats</button></div>
+<div><button mat-raised-button [disabled]="sessionsByProfile.length == 0" routerLink="/stats">View Stats</button></div>
 <div><button mat-raised-button (click)="openProfileSelect()">{{changeProfileButtonText}}</button></div>
