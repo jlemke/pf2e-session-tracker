@@ -35,6 +35,11 @@ export class AppService {
     this.storage.get('sessions').subscribe((data) => {
       if (data != undefined) {
         console.log(data);
+        this.sessions = data as any[] ?? [];
+        // Then it sorts it so most recent sessions are first
+        this.sessions.sort((a, b) => Date.parse(b.startTime) - Date.parse(a.startTime));
+      } else {
+        console.log("Error loading session data from local storage.");
       }
     });
   }
@@ -51,7 +56,8 @@ export class AppService {
   }
 
   getMostRecentSession(profileName: string) {
-    return calculateMostRecentSession(this.getSessions(profileName));
+    //return calculateMostRecentSession(this.getSessions(profileName));
+    return this.getSessions(profileName)[0];
   }
   
   selectProfile(selected: string) {
@@ -63,7 +69,7 @@ export class AppService {
   }
 
   saveCurrentSession(session: SessionData) {
-    this.sessions.push(session);
+    this.sessions = [session, ...this.sessions];
     this.storage.set('sessions', this.sessions).subscribe(() => {});
     console.log(session);
   }

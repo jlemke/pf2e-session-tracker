@@ -18,7 +18,12 @@ import { MatListModule, MatListOption } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+
+
 import { DiceRollComponent } from './dice-roll/dice-roll.component';
+import { SessionHistoryComponent } from './session-history/session-history.component';
 
 
 @NgModule({
@@ -28,7 +33,8 @@ import { DiceRollComponent } from './dice-roll/dice-roll.component';
     PlayComponent,
     StatsComponent,
     SelectProfileComponent,
-    DiceRollComponent
+    DiceRollComponent,
+    SessionHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +48,8 @@ import { DiceRollComponent } from './dice-roll/dice-roll.component';
     MatDividerModule,
     MatButtonToggleModule,
     MatDialogModule,
+    MatCardModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

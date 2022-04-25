@@ -63,6 +63,32 @@ export function sinceDate(dateString: string) {
     return seconds + "s ago";
 }
 
+export function getFormattedDuration(o: Timeable): string {
+    let durationString = "";
+    let ms = Date.parse(o.endTime) - Date.parse(o.startTime);
+    let days = Math.floor(ms/86400000);
+    ms = ms%86400000;
+    let hours = Math.floor(ms/3600000);
+    ms = ms%3600000;
+    let minutes = Math.floor(ms/60000);
+    ms = ms%60000;
+    let seconds = Math.floor(ms/1000);
+
+    if (days == 1)
+        durationString += days + " day ";
+    else if (days > 1)
+        durationString += days + " days ";
+
+    durationString += hours + ":";
+    if (minutes < 10)
+        durationString += "0";
+    durationString += minutes + ":";
+    if (seconds < 10)
+        durationString += "0";
+    durationString += seconds;
+    return durationString;
+}
+
 interface Timeable {
     startTime: string;
     endTime: string;

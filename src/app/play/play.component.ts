@@ -24,6 +24,7 @@ export class PlayComponent implements OnInit {
   constructor(private router: Router, private rollDialog: MatDialog, private appService: AppService) {
     this.character = this.appService.getSelectedProfile(),
     this.sessionStartTime = getTimestamp();
+    console.log(this.sessionStartTime);
    }
 
   ngOnInit(): void {

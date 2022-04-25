@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   constructor(private profileDialog: MatDialog, private appService: AppService) { }
 
   updateSelectedProfile() {
+    // TODO this is getting called before data is loaded from storage
     this.profiles = this.appService.getProfiles();
     if (this.profiles.length != 0) {
       this.currentProfile = this.profiles[0];

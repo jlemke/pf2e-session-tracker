@@ -3,14 +3,15 @@ import { AppService } from '../app.service';
 import { getFormattedDuration, SessionData } from '../session-data';
 
 @Component({
-  selector: 'app-stats',
-  templateUrl: './stats.component.html',
-  styleUrls: ['./stats.component.css']
+  selector: 'app-session-history',
+  templateUrl: './session-history.component.html',
+  styleUrls: ['./session-history.component.css']
 })
-export class StatsComponent implements OnInit {
+export class SessionHistoryComponent implements OnInit {
 
   profile: string = "";
   sessions: SessionData[] = [];
+  listNumber: number = 5;
 
   constructor(private appService: AppService) { }
 
@@ -24,5 +25,12 @@ export class StatsComponent implements OnInit {
     let dateString = date.toDateString();
     return dateString;
   }
-  
+
+  sessionLength(session: SessionData): string {
+    return getFormattedDuration(session);
+  }
+
+  showMoreHistory(): void {
+    this.listNumber += 5;
+  }
 }
