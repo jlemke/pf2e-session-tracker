@@ -41,8 +41,8 @@ export class HomeComponent implements OnInit {
   openProfileSelect() {
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
 
     const dialogRef = this.profileDialog.open(SelectProfileComponent, dialogConfig);
 

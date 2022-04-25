@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { getDuration, getFormattedDuration, SessionData } from '../session-data';
-import { calculateNumberOfRolls } from '../session-stats';
+import { calculateTotalNumberOfRolls } from '../session-stats';
 
 @Component({
   selector: 'app-stats',
@@ -32,6 +32,6 @@ export class StatsComponent implements OnInit {
   }
 
   totalRolls(): number {
-    return calculateNumberOfRolls(this.sessions);
+    return calculateTotalNumberOfRolls(this.sessions);
   }
 }
