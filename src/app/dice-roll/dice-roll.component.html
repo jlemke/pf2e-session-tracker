@@ -1,15 +1,39 @@
-<form class="die-roll-form pane">
-    <div>
-        <mat-selection-list [multiple]="false">
-            <mat-list-option *ngFor="let type of checkTypes">
-                {{type}}
-            </mat-list-option>
-        </mat-selection-list>
-        <button mat-raised-button>Next</button>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <input type="number" matInput>
-        </mat-form-field>
-    </div>
+<form class="die-roll-form">
+    <mat-stepper #stepper>
+        <mat-step label="Check Type">
+            <mat-selection-list [multiple]="false" name="check-type" [(ngModel)]="checkType">
+                <mat-list-option *ngFor="let type of CHECKTYPES; first as isFirst" 
+                        [value]="type"
+                        [selected]="isFirst">
+                    {{type}}
+                </mat-list-option>
+            </mat-selection-list>
+            <div>
+                <button mat-raised-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step label="Die Result">
+            <mat-form-field appearance="fill">
+                <input matInput type="number" name="die-roll" [(ngModel)]="dieRoll">
+            </mat-form-field>
+            <div>
+                <button mat-raised-button matStepperPrevious>Back</button>
+                <button mat-raised-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step label="Check Result">
+            <form>
+            <mat-selection-list [multiple]="false" name="check-result" [(ngModel)]="checkResult">
+                <mat-list-option *ngFor="let result of RESULTS; first as isFirst"
+                        [value]="result">
+                    {{result}}
+                </mat-list-option>
+            </mat-selection-list>
+            <div>
+                <button mat-raised-button matStepperPrevious>Back</button>
+                <button mat-raised-button (click)="done()">Done</button>
+            </div>
+            </form>
+        </mat-step>
+    </mat-stepper>
 </form>

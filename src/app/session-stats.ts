@@ -1,7 +1,10 @@
 import { summaryFileName } from "@angular/compiler/src/aot/util";
 import { combineLatest } from "rxjs";
-import { CombatData, getDuration, RollData, SessionData } from "./session-data";
+import { CombatData, getDuration, RollData, SessionData, CHECKTYPES, RESULTS } from "./session-data";
 import { SessionService } from "./session.service";
+
+const OUTLIER_UPPER_THRESHHOLD = 15;
+const OUTLIER_LOWER_THRESHHOLD = 5;
 
 // Determines whether a given roll was made during a given combat
 function isDuringThisCombat(roll: RollData, combat: CombatData): boolean {
@@ -18,10 +21,6 @@ export function calculateMostRecentSession(sessions: SessionData[]): SessionData
         Date.parse(session.startTime) > Date.parse(acc.startTime) ? session : acc, sessions[0]);
 }
 
-export function calculateTotalSessionTime(sessions: SessionData[]): number {
-    return sessions.reduce((acc, session) => acc + getDuration(session), 0)
-}
-
 export function calculateShortestSession(sessions: SessionData[]): SessionData {
     return sessions.reduce((acc, session) => getDuration(acc) < getDuration(session) ? acc : session, sessions[0]);
 }
@@ -36,9 +35,15 @@ export function calculateAverageSessionTime(sessions: SessionData[]): number {
     return sum / l;
 }
 
+
 export function calculateSessionLongestCombat(session: SessionData): CombatData {
     return session.combats.reduce((acc, combat) =>
         getDuration(combat) > getDuration(acc) ? combat : acc, session.combats[0]);
+}
+
+
+export function calculateTotalSessionTime(sessions: SessionData[]): number {
+    return sessions.reduce((acc, session) => acc + getDuration(session), 0)
 }
 
 // Calculates total time in milliseconds of combat in a given SESSION
@@ -78,3 +83,47 @@ export function calculateSessionCombatRolls(session: SessionData): number {
             isDuringThisCombat(roll, combat) ? acc2 + 1 : acc2, 0) + acc, 0);
 }
 
+
+
+export function calculateSessionRollOutliers(session: SessionData): RollData[] {
+    return session.rolls.filter((roll) => 
+        (roll.checkResult == RESULTS[0] && roll.dieRoll <= OUTLIER_LOWER_THRESHHOLD) ||
+        (roll.checkResult == RESULTS[4] && roll.dieRoll >= OUTLIER_UPPER_THRESHHOLD));
+}
+
+// TODO make this not an array?
+export function findLowestCriticalSuccess(rolls: RollData[]): RollData[] {
+    let crits = rolls.filter((roll) => roll.checkResult == RESULTS[0]);
+    if (crits.length > 0)
+        return [crits.reduce((acc, roll) => 
+            roll.dieRoll < acc.dieRoll ? roll : acc, crits[0])];
+    else
+        return [];
+}
+
+// Returns a 4-length array tally of each type of result
+export function tallySessionCheckResults(session: SessionData, res=[0,0,0,0]): number[] {
+    session.rolls.forEach(roll => res[RESULTS.indexOf(roll.checkResult)]++);
+    return res;
+}
+
+export function tallyTotalCheckResults(sessions: SessionData[]): number[] {
+    let res = [0,0,0,0];
+    return sessions.reduce((acc, session) => tallySessionCheckResults(session, acc), res);
+}
+
+//creates a map with counts for each type of check made in a session
+export function tallySessionCheckTypes(session: SessionData, tallyMap=new Map()) {
+    return session.rolls.reduce((acc, roll) => {
+        if (acc.has(roll.checkType))
+            acc.set(roll.checkType, acc.get(roll.checkType) + 1);
+        else
+            acc.set(roll.checkType, 1);
+        return acc;
+    }, tallyMap);
+}
+
+//creates a map with counts for each type of check in all sessions
+export function tallyTotalCheckTypes(sessions: SessionData[]) {
+    return sessions.reduce((acc, session) => tallySessionCheckTypes(session, acc), new Map());
+}

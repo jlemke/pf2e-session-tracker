@@ -2,24 +2,22 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AppService } from '../app.service';
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { CHECKTYPES } from '../session-data';
+import { CHECKTYPES, getTimestamp, RESULTS, RollData } from '../session-data';
 
 @Component({
   selector: 'app-dice-roll',
   templateUrl: './dice-roll.component.html',
-  styleUrls: ['./dice-roll.component.css'],
-  animations: [
-    trigger('slide', [
-      state('left', style({ transform: 'translateX(0)' })),
-      state('right', style({ transform: 'translateX(-50%)' })),
-      transition('* => *', animate(300))
-  ])]
+  styleUrls: ['./dice-roll.component.css']
 })
 export class DiceRollComponent implements OnInit {
 
-  @Input() activePane: PaneType = 0;
+  CHECKTYPES = CHECKTYPES;
+  RESULTS = RESULTS;
 
-  checkTypes = CHECKTYPES;
+  checkType: string = "";
+  dieRoll: number = 0;
+  checkResult: string = "";
+  
 
   constructor(private appService: AppService, 
     private dialogRef: MatDialogRef<DiceRollComponent>) { }
@@ -31,11 +29,15 @@ export class DiceRollComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  done(selection: string): void {
-    this.appService.selectProfile(selection);
+  done(): void {
+    let roll: RollData = {
+      time : getTimestamp(),
+      dieRoll : this.dieRoll,
+      checkResult : this.checkResult[0], //Not sure why these two are arrays... ???
+      checkType : this.checkType[0]
+    }
+    this.appService.addRoll(roll);
     this.dialogRef.close();
   }
 
 }
-
-type PaneType = 0 | 1;

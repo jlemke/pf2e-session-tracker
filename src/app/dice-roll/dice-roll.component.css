@@ -3,12 +3,3 @@
     overflow: hidden;
     outline: 1px solid black;
 }
-
-.pane {
-    height: 100%;
-    width: 200%; 
-    display: flex; 
-    div { 
-        flex: 1; 
-    } 
-}

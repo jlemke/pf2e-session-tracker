@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { PROFILES, SESSIONS } from './sample-session-data';
-import { SessionData } from './session-data';
+import { RollData, SessionData } from './session-data';
 import { calculateLongestSession, calculateMostRecentSession } from './session-stats';
 
 @Injectable({
@@ -14,6 +14,8 @@ export class AppService {
   profiles: string[] = PROFILES;
 
   sessions: SessionData[] = SESSIONS;
+
+  activeSession: SessionData[] = [];
 
   loadProfiles(): void {
     this.storage.get('profiles').subscribe((data) => {
@@ -66,6 +68,11 @@ export class AppService {
 
   getSelectedProfile(): string {
     return this.profiles[0];
+  }
+
+  addRoll(roll: RollData):void {
+    console.log(roll);
+    //this.activeSession[0].rolls = [roll, ...this.activeSession[0].rolls];
   }
 
   saveCurrentSession(session: SessionData) {

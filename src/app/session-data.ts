@@ -123,7 +123,11 @@ export interface RollData {
 
 export const CHECKTYPES: string[] = [
     'Attack Roll', 'Fortitude Save', 'Will Save', 'Reflex Save'
-]
+];
+
+export const RESULTS: string[] = [
+    'Critical Success', 'Success', 'Failure', 'Critical Failure'
+];
 
 //const groupRollsByCheckType = (sessions: SessionData[]) => {
 //    sessions.reduce(
