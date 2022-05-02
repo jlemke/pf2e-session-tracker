@@ -1,21 +1,28 @@
-<mat-toolbar color="primary">
-    <span>Pathfinder Session Tracker</span>
-</mat-toolbar>
-<div *ngIf="profiles.length != 0">
-    <h1>{{currentProfile}}</h1>
-    <div [ngPlural]="sessionsByProfile.length">
+<header>
+    <h1>Pathfinder Session Tracker</h1>
+</header>
+<main>
+    <h2 *ngIf="profiles.length != 0">
+        {{currentProfile}}
+    </h2>
+    <h3 *ngIf="profiles.length != 0" [ngPlural]="sessionsByProfile.length">
         <ng-template ngPluralCase="0">No sessions</ng-template>
         <ng-template ngPluralCase="1">1 session</ng-template>
         <ng-template ngPluralCase="other">{{sessionsByProfile.length}} sessions</ng-template>
-    </div>
-    <div *ngIf="sessionsByProfile.length > 0">
+    </h3>
+    <h4 *ngIf="sessionsByProfile.length > 0">
         Last Session {{sinceLastSession}}
-    </div>
-</div> 
-<div *ngIf="profiles.length == 0">
-    <h1>Add a profile to begin.</h1>
-</div>
-<div><button mat-raised-button [disabled]="profiles.length == 0" routerLink="/session">Start Session</button></div>
-<div><button mat-raised-button [disabled]="sessionsByProfile.length == 0" routerLink="/stats">View Stats</button></div>
-<div><button mat-raised-button [disabled]="sessionsByProfile.length == 0" routerLink="/history">Session History</button></div>
-<div><button mat-raised-button (click)="openProfileSelect()">{{changeProfileButtonText}}</button></div>
+    </h4>
+    <h1 *ngIf="profiles.length == 0">Add a profile to begin.</h1>
+    <button class="menu-button" mat-raised-button 
+        [disabled]="profiles.length == 0" 
+        routerLink="/session">Start Session</button>
+    <button class="menu-button" mat-raised-button 
+        [disabled]="sessionsByProfile.length == 0" 
+        routerLink="/stats">View Stats</button>
+    <button class="menu-button" mat-raised-button 
+        [disabled]="sessionsByProfile.length == 0" 
+        routerLink="/history">Session History</button>
+    <button class="menu-button" mat-raised-button 
+        (click)="openProfileSelect()">{{changeProfileButtonText}}</button>
+</main>

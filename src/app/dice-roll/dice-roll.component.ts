@@ -33,7 +33,7 @@ export class DiceRollComponent implements OnInit {
     let roll: RollData = {
       time : getTimestamp(),
       dieRoll : this.dieRoll,
-      checkResult : this.checkResult[0], //Not sure why these two are arrays... ???
+      checkResult : this.checkResult[0], //Not sure why these are arrays... ???
       checkType : this.checkType[0]
     }
     this.appService.addRoll(roll);
