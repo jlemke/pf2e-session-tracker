@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class PlayComponent implements OnInit {
 
   character: string;
-  sessionStartTime: string;
   combats: CombatData[] = [];
   rolls: RollData[] = [];
 
@@ -22,9 +21,9 @@ export class PlayComponent implements OnInit {
   combatRounds = 0;
 
   constructor(private router: Router, private rollDialog: MatDialog, private appService: AppService) {
-    this.character = this.appService.getSelectedProfile(),
-    this.sessionStartTime = getTimestamp();
-    console.log(this.sessionStartTime);
+    this.character = this.appService.getSelectedProfile();
+    this.appService.startNewSession();
+    //console.log(this.sessionStartTime);
    }
 
   ngOnInit(): void {
@@ -49,7 +48,7 @@ export class PlayComponent implements OnInit {
       endTime : getTimestamp(),
       rounds : this.combatRounds
     }
-    this.combats.push(newCombat);
+    this.appService.addCombat(newCombat);
   }
 
   openDieRoll() {
@@ -68,14 +67,14 @@ export class PlayComponent implements OnInit {
   }
 
   endSession() {
-    let session: SessionData = {
-      character : this.character,
-      startTime : this.sessionStartTime,
-      endTime : getTimestamp(),
-      combats : this.combats,
-      rolls : this.rolls
-    }
-    this.appService.saveCurrentSession(session);
+    //let session: SessionData = {
+    //  character : this.character,
+    //  startTime : this.sessionStartTime,
+    //  endTime : getTimestamp(),
+    //  combats : this.combats,
+    //  rolls : this.rolls
+    //}
+    this.appService.saveActiveSessionToStorage();
     this.router.navigate(["/"]);
   }
 

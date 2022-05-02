@@ -29,18 +29,18 @@ export function calculateLongestSession(sessions: SessionData[]): SessionData {
     return sessions.reduce((acc, session) => getDuration(acc) > getDuration(session) ? acc : session, sessions[0])
 }
 
-export function calculateAverageSessionTime(sessions: SessionData[]): number {
-    let l = sessions.length;
-    let sum = calculateTotalSessionTime(sessions);
-    return sum / l;
-}
-
-
 export function calculateSessionLongestCombat(session: SessionData): CombatData {
     return session.combats.reduce((acc, combat) =>
         getDuration(combat) > getDuration(acc) ? combat : acc, session.combats[0]);
 }
 
+
+
+export function calculateAverageSessionTime(sessions: SessionData[]): number {
+    let l = sessions.length;
+    let sum = calculateTotalSessionTime(sessions);
+    return sum / l;
+}
 
 export function calculateTotalSessionTime(sessions: SessionData[]): number {
     return sessions.reduce((acc, session) => acc + getDuration(session), 0)

@@ -3,3 +3,19 @@
     overflow: hidden;
     outline: 1px solid black;
 }
+
+.die-roll-input {
+    display: flex;
+    justify-content: center;
+}
+
+.numpad-input-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.numpad-input-button {
+    justify-self: center;
+    margin: 0.25rem 0.25rem 0.25rem 0.25rem;
+}

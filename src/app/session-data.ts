@@ -122,7 +122,28 @@ export interface RollData {
 }
 
 export const CHECKTYPES: string[] = [
-    'Attack Roll', 'Fortitude Save', 'Will Save', 'Reflex Save'
+    'Attack Roll',
+    'Fortitude Save', 
+    'Will Save', 
+    'Reflex Save',
+    'Flat Check',
+    'Acrobatics',
+    'Arcana',
+    'Athletics',
+    'Crafting',
+    'Deception',
+    'Diplomacy',
+    'Intimidation',
+    'Lore',
+    'Medicine',
+    'Nature',
+    'Occultism',
+    'Performance',
+    'Religion',
+    'Society',
+    'Stealth',
+    'Survival',
+    'Thievery'
 ];
 
 export const RESULTS: string[] = [

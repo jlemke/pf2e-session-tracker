@@ -1,5 +1,14 @@
 <button mat-raised-button routerLink="/">Back</button>
-<div>
-    <h2>Time Played: {{totalSessionTime()}}</h2>
-    <h2>Dice Rolled: {{totalRolls()}}</h2>
-</div>
+<main>
+    <h1>Rohim</h1>
+    <section>
+        <h2>Time Played: {{totalSessionTime()}}</h2>
+        <h2>Dice Rolled: {{totalRolls()}}</h2>
+        <h2>Rounds of combat: {{totalCombatRounds()}}</h2>
+    </section>
+    <section>
+        <mat-card>
+            <h2>Longest combat</h2>
+        </mat-card>
+    </section>
+</main>

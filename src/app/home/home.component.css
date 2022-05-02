@@ -4,6 +4,19 @@
     align-items: center;
 }
 
+header {
+    color: white;
+    background-color: blue;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+header * {
+    margin-bottom: 0px;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -12,4 +25,5 @@ main {
 
 .menu-button {
     margin-top: 1rem;
+    width: 8rem;
 }

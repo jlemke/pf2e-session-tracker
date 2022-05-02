@@ -1,6 +1,7 @@
 <form class="die-roll-form">
-    <mat-stepper #stepper>
+    <mat-stepper labelPosition="bottom" #stepper>
         <mat-step label="Check Type">
+            <mat-dialog-content>
             <mat-selection-list [multiple]="false" name="check-type" [(ngModel)]="checkType">
                 <mat-list-option *ngFor="let type of CHECKTYPES; first as isFirst" 
                         [value]="type"
@@ -8,14 +9,22 @@
                     {{type}}
                 </mat-list-option>
             </mat-selection-list>
+            </mat-dialog-content>
             <div>
                 <button mat-raised-button matStepperNext>Next</button>
             </div>
         </mat-step>
         <mat-step label="Die Result">
-            <mat-form-field appearance="fill">
-                <input matInput type="number" name="die-roll" [(ngModel)]="dieRoll">
+            <mat-form-field class="die-roll-input" appearance="fill">
+                <input matInput type="number" name="die-roll" min="0" step="1" max="20" 
+                        (keypress)="validateNumpadInput($event)" [(ngModel)]="dieRoll">
             </mat-form-field>
+            <section class="numpad-input-container">
+                <button class="numpad-input-button" *ngFor="let n of NUMPAD" mat-fab 
+                        color="primary" (click)="addNumber(n)">{{n}}</button>
+                <button class="numpad-input-button" mat-fab color="warn" (click)="deleteNumber()">Del</button>
+                <button class="numpad-input-button" mat-fab color="primary" (click)="addNumber('0')">0</button>
+            </section>
             <div>
                 <button mat-raised-button matStepperPrevious>Back</button>
                 <button mat-raised-button matStepperNext>Next</button>
